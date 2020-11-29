@@ -1,0 +1,9 @@
+//figure out wether app is in prod mode or dev mode
+
+if(process.env.NODE_ENV === 'production'){
+	//return prod set of keys
+	module.exports = require('./prod')
+}else{
+	//return dev set of keys
+	module.exports = require('./dev')
+}
