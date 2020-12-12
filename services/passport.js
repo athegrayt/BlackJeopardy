@@ -24,19 +24,14 @@ passport.use(
 			callbackURL: '/auth/google/callback',
 			proxy: true,
 		},
-		(accessToken, refreshToken, profile, done) => {
-			User.findOne({ googleID: profile.id }).then((existingUser) => {
+		async (accessToken, refreshToken, profile, done) => {
+			const existingUser = await User.findOne({ googleID: profile.id })
 				if (existingUser) {
-					//already have record of User
-					done(null, existingUser);
-				} else {
-					//make new record
-					new User({ googleID: profile.id, email: profile.email })
-						.save()
-						.then((user) => done(null, user));
-				}
-			});
-		}
+					return done(null, existingUser);
+				} 
+				const user = await new User({ googleID: profile.id, email: profile.email }).save()
+				done(null, user);
+			}
 	)
 );
 passport.use(
@@ -48,20 +43,13 @@ passport.use(
 			profileFields: ['id', 'displayName', 'photos', 'email'],
 			proxy: true,
 		},
-		(accessToken, refreshToken, profile, done) => {
-			User.findOne({ facebookID: profile.id }).then((existingUser) => {
+		async (accessToken, refreshToken, profile, done) => {
+			const existingUser = await User.findOne({ facebookID: profile.id })
 				if (existingUser) {
-					console.log('user exisits facebook');
-					//already have record of User
-					done(null, existingUser);
-				} else {
-					console.log('user does not exisits facebook');
-					//make new record
-					new User({ facebookID: profile.id, email: profile.email })
-						.save()
-						.then((user) => done(null, user));
+					return done(null, existingUser);
 				}
-			});
-		}
+					const user = await new User({ facebookID: profile.id, email: profile.email }).save()
+					done(null, user)
+			}
 	)
 );
