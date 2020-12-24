@@ -1,0 +1,13 @@
+/* BlackJeopardy 1 */
+
+.imagebg{
+    position: absolute;
+    width: 375px;
+    height: 508px;
+    left: 0px;
+    top: 0px;
+    
+    background: url('https://pyxis.nymag.com/v1/imgs/356/56b/812d38a054d704568f1815ea0778d3a5e5-22-black-jeopardy-feature-lede-kenan-tho.2x.h600.w512.jpg');
+    opacity: 0.2;
+    border-radius: 35px;
+}

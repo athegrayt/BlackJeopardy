@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import Header from './Header';
-import UserAuth from './UserAuth'
-import Landing from './Landing'
+import Header from '../components/Header';
+import UserAuth from '../components/UserAuth'
+import Landing from '../components/landing/Landing'
    
 const Jeopardy = () => <h2>Jeopardy</h2>
 const Question = () => <h2>Question</h2>
