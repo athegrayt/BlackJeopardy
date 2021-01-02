@@ -1,0 +1,75 @@
+.gradientbg {
+	background-image: linear-gradient(#060ce9, #8d2ab5);
+	background-color: #060ce9;
+	height: 100vh;
+	width: 100vw;
+}
+.gradientJeop {
+	background-image: linear-gradient(#ffffff, #8d2ab5);
+	background-color: #ffffff;
+	height: 100vh;
+	width: 100vw;
+}
+
+.logo {
+	margin-top: 32px;
+	width: 150px;
+}
+
+h3 {
+	color: #ffffff;
+	text-align: center;
+	margin: 16px;
+}
+
+.content {
+	display: flex;
+	flex-flow: column;
+	/* border: 2px solid black; */
+	/* justify-content: space-between; */
+	align-items: center;
+	height: 90vh;
+	width: 100vw;
+	z-index: 2;
+	position: absolute;
+	top: 0;
+}
+
+.tabBar {
+	display: flex;
+	align-content: center;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 10vh;
+	border-radius: 25px 25px 0px 0px;
+	background-color: #bd83d4;
+	color: black;
+	text-align: center;
+}
+
+.newGame {
+	text-align: center;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: space-evenly;
+	height: 65vh;
+	width: 100vw;
+}
+
+.icons {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+}
+.unselected {
+  color: #ffffff;
+	font-size: 5vh;
+}
+.selected {
+	color: #673115;
+	font-size: 5vh;
+}

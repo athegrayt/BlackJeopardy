@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon index.js",
+    "server": "nodemon index.js --ignore './client'",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
@@ -18,19 +18,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.6",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.16",
     "nodemon": "^2.0.6",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.0",
     "puppeteer": "^5.3.0",
     "redux-form": "^8.3.7",
     "sendgrid": "^5.2.3",
-    "stripe": "^8.127.0"
+    "stripe": "^8.127.0",
+    "validator": "^13.5.2"
   }
 }

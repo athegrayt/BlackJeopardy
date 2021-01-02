@@ -1,31 +1,21 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
-import classes from './Landing.module.css'
-
-    
-const Landing = (props) =>{
-   const authenticated = props.auth ? '/jeopardy' : '/auth';
-    return (
-			<div>
-				<Link to={authenticated} className='waves-effect waves-light btn-large'>
-					User vs CPU
-				</Link>
-				<Link to={authenticated} className='waves-effect waves-light btn-large'>
-					User vs User
-				</Link>
-				<Link
-					to={'/jeopardy'}
-					className='waves-effect waves-light red btn-large'>
-					Play as Guest
-				</Link>
+import React from 'react';
+import LoginButton from '../UI/Buttons/LoginButton';
+import image from '../../assets/images/BlackJeopardy.jpg';
+import Login from '../../hoc/Layouts/Login/Login'
+import * as classes from './Landing.module.css'
+const Landing = (props) => {
+	console.log(props);
+	return (
+		<Login>
+			<div className={classes.content}>
+				<h5>Validate you "Black Card" with Black Jeopardy</h5>
+				<img className={classes.imagebg} src={image} alt='background'></img>
+				<LoginButton clicked={() => props.history.push('/login')}>
+					Let's Play
+				</LoginButton>
 			</div>
-		);
-    
+		</Login>
+	);
 };
 
-const mapStateToProps = ({auth}) => {
-    return {auth}
-}
-
-export default connect(mapStateToProps)(Landing);
+export default Landing;
