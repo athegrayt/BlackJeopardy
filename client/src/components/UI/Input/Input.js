@@ -13,7 +13,9 @@ const Input = ({ input, label, value, type, onChange, error}) => {
 				className={classnames('white-text', {
 					invalid: error
 				})}
-				style={{ borderBottomColor: 'white' }}
+				style={{ 
+					borderBottomColor: 'white', 
+			 }}
 			/>
 			<span className='red-text'>{error}</span>	
 		</div>

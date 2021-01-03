@@ -45,27 +45,7 @@ passport.use(
 			}
 	)
 );
-passport.use(
-	new FacebookStrategy(
-		{
-			clientID: keys.facebookClientID,
-			clientSecret: keys.facebookClientSecret,
-			callbackURL: '/auth/facebook/callback',
-			profileFields: ['id', 'displayName', 'photos', 'email'],
-			proxy: true,
-		},
-		async (accessToken, refreshToken, profile, done) => {
-			console.log(`profile.id: ${profile.id}`);
-			console.log(profile);
-			const existingUser = await User.findOne({ facebookID: profile.id })
-				if (existingUser) {
-					return done(null, existingUser);
-				}
-					const user = await new User({ facebookID: profile.id }).save()
-					done(null, user)
-			}
-	)
-)
+
 passport.use(
 	new JwtStrategy(opts, (jwt_payload, done) => {
 		const user = User.findById(jwt_payload.id)

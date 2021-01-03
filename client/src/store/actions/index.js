@@ -89,6 +89,7 @@ export const logoutUser = () => (dispatch) => {
 		dispatch(setCurrentUser({}));
 	}else{
 		axios.get('/api/logout')
+		dispatch(setCurrentUser({}));
 	}
 };
 
