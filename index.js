@@ -6,8 +6,17 @@ const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
 require('./models/Receipt');
+require('./models/Quote');
+require('./models/MovieQuote');
+require('./models/Person');
+require('./models/SNL');
+require('./models/CurrentGame');
 require('./services/passport');
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, {
+	useFindAndModify: false,
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 
 const app = express();
 app.use(
@@ -29,6 +38,7 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
 require('./routes/receiptRoutes')(app);
+require('./routes/jeopardyRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'));

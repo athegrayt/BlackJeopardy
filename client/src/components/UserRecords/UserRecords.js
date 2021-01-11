@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import TabBar from '../../hoc/Layouts/Tabbar/TabBar';
 import * as classes from './UserRecords.module.css'
-import * as actions from '../../store/actions'
+import * as actions from '../../store/actions/jeopardyActions'
     
 const UserRecords = (props) =>{
    props.updateCurTab(props.location.icon);

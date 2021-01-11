@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginButton from '../UI/Buttons/LoginButton';
+import LoginButton from '../UI/Buttons/Login/LoginButton';
 import image from '../../assets/images/BlackJeopardy.jpg';
 import Login from '../../hoc/Layouts/Login/Login'
 import * as classes from './Landing.module.css'

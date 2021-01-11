@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import * as actions from './store/actions';
+import * as actions from './store/actions/authActions';
 import Dashboard from './components/Dashboard/Dashboard'
 import UserAuth from './components/UserAuth/UserAuth'
 import Landing from './components/Landing/Landing'
 import Jeopardy from './components/Jeopardy/Jeopardy'
+import Question from './components/Question/Question'
 import UserSettings from './components/UserSettings/UserSettings'
 import UserRecords from './components/UserRecords/UserRecords'
 import PrivateRoute from './hoc/PrivateRoutes/PrivateRoutes'
    
 
-const Question = () => <h2>Question</h2>
+
 
 
  

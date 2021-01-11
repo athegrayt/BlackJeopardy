@@ -1,7 +1,7 @@
 import axios from 'axios'
 import setAuthToken from '../../utils/setAuthToken'
 import jwt_decode from "jwt-decode"
-import {FETCH_USER, UPDATE_CUR_TAB, GET_ERRORS, SET_CURRENT_USER, USER_LOADING} from './actionTypes'
+import {FETCH_USER, GET_ERRORS, SET_CURRENT_USER, USER_LOADING} from './actionTypes'
 
 
 export const fetchUser = () => 
@@ -10,9 +10,10 @@ export const fetchUser = () =>
 		let decoded, currentTime
 		const token = await localStorage.jwtToken;
         const res = await axios.get('/api/current-user')
-
+		console.log(res)
 			if(res.data){
-			dispatch({
+			// setAuthToken(res.data._id);
+				dispatch({
 				type: FETCH_USER,
 				payload: res.data,
 			})
@@ -60,7 +61,6 @@ export const loginUser = (userData, history) => async dispatch => {
 		history.push('/dashboard');
 
 	}catch(err){
-		console.log(err.response.data)
 		dispatch({
 			type: GET_ERRORS,
 			payload: err.response.data,
@@ -93,11 +93,3 @@ export const logoutUser = () => (dispatch) => {
 	}
 };
 
-export const updateCurTab = (curTab, jeop) => {
-	console.log({curTab, jeop})
-	return{
-		type: UPDATE_CUR_TAB,
-		curTab, 
-		jeop
-	}
-}

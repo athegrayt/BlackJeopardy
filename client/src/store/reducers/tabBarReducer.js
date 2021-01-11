@@ -19,7 +19,7 @@ const tabBarReducer = (state = initialState, action) => {
 				updateTabState[icon]= true
 				}
 			} 
-			return {jeopardy: action.jeop,icons:updateTabState}
+			return {jeopardy: action.jeop,icons:updateTabState, question: false}
 		default:
 			return state;
 	}

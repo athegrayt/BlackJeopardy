@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import Input from '../UI/Input/Input';
 import googleSignIn from '../../assets/google_signin_buttons/web/1x/btn_google_signin_dark_normal_web.png'
-import LoginButton from '../UI/Buttons/LoginButton';
+import LoginButton from '../UI/Buttons/Login/LoginButton';
 import Login from '../../hoc/Layouts/Login/Login'
 import * as classes from './UserAuth.module.css' 
 import {signInFields, signUpFields} from '../UserAuth/authFields';
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index'
+import * as actions from '../../store/actions/authActions'
 // import validateEmails from '../../utils/validateEmails';
 
 class UserAuth extends Component {
@@ -16,7 +16,16 @@ class UserAuth extends Component {
 		signIn: true,
 	};
 
+	
+
 	componentDidMount(){
+		console.log(this.props.auth.isAuthenticated);
+		if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+	}
+	componentDidUpdate(){
+		console.log(this.props.auth.isAuthenticated);
 		if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }

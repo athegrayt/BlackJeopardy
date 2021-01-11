@@ -1,7 +1,6 @@
 const passport = require('passport');
 const mongoose = require('mongoose');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const keys = require('../config/keys');
@@ -33,14 +32,12 @@ passport.use(
 		async (accessToken, refreshToken, profile, done) => {
 			const existingUser = await User.findOne({ googleID: profile.id })
 				if (existingUser) {
-					console.log('existingUser');
 					return done(null, existingUser);
 				} 
 				const user = await new User({
 					googleID: profile.id,
 					email: profile.emails[0].value,
 				}).save();
-				console.log('newUser');
 				done(null, user);
 			}
 	)

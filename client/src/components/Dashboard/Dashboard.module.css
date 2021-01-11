@@ -9,6 +9,18 @@ align-items: center;
 margin: 32px;
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
+.btnDisabled{
+background:C4C4C4;
+border-radius: 25px;
+height: 100px;
+width:150px;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 32px;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
 
 .dashboard{
     display: flex;
@@ -21,3 +33,8 @@ p{
     padding: 16px;
     font-size: 18px;
 }
+/* .btnDisabled p{
+    color:#8D2AB5;
+    padding: 16px;
+    font-size: 18px;
+} */

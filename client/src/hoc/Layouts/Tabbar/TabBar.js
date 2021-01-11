@@ -8,6 +8,15 @@ import * as classes from './TabBar.module.css';
 class TabBar extends Component {
 	
 	render() {
+		let logoBJ = this.props.question ? null : (
+			<Link
+				to={{
+					pathname: '/dashboard',
+					icon: 'home',
+				}}>
+				<img className={classes.logo} src={logo} alt='logo'></img>
+			</Link>
+		);
 		let gradient = this.props.jeop ? classes.gradientJeop : classes.gradientbg 
 		let homeIconClass = this.props.homeIcon ? classes.selected : classes.unselected
 		let recordIconClass = this.props.recordIcon ? classes.selected : classes.unselected
@@ -15,13 +24,7 @@ class TabBar extends Component {
 		return (
 			<div className={gradient}>
 				<main className={classes.content}>
-					<Link
-						to={{
-							pathname: '/dashboard',
-							icon: 'home',
-						}}>
-					<img className={classes.logo} src={logo} alt='logo'></img>
-						</Link>
+					{logoBJ}
 					{this.props.children}
 				</main>
 				<div className={classes.tabBar}>
@@ -59,7 +62,7 @@ const mapStateToProps = (state) => {
 		homeIcon: state.tabBar.icons.home, 
 		recordIcon: state.tabBar.icons.records, 
 		settingsIcon: state.tabBar.icons.settings, 
-		jeop: state.tabBar.jeopardy
+		jeop: state.tabBar.jeopardy,
 	}
 }
 export default connect(mapStateToProps)(TabBar);

@@ -10,10 +10,12 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case FETCH_USER:
-			return {
-				...state,
-				isAuthenticated: !isEmpty(action.payload)
-			}
+		console.log('authenticate');	
+		return {
+			...state,
+			isAuthenticated: !isEmpty(action.payload),
+			user: { id: action.payload._id },
+		};
 		case SET_CURRENT_USER:
 			return {
 				...state,

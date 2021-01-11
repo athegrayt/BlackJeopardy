@@ -1,5 +1,10 @@
-export const FETCH_USER = 'FETCH_USER'
-export const UPDATE_CUR_TAB = 'UPDATE_CUR_TAB'
+export const FETCH_USER = 'FETCH_USER';
+export const UPDATE_CUR_TAB = 'UPDATE_CUR_TAB';
 export const GET_ERRORS = 'GET_ERRORS';
 export const USER_LOADING = 'USER_LOADING';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const SET_NEW_GAME = 'SET_NEW_GAME';
+export const SET_CURRENT_GAME = 'SET_CURRENT_GAME';
+export const SET_GAME_QUESTIONS = 'SET_GAME_QUESTIONS';
+export const UPDATE_QUESTION = 'UPDATE_QUESTION';
+export const UPDATE_SCORE = 'UPDATE_SCORE';

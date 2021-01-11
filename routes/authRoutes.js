@@ -108,9 +108,11 @@ module.exports = (app) => {
 						res.json({
 							success: true,
 							token: 'Bearer ' + token,
+							userID: user.id
 						});
 					}
 				);
+				// res.send(user)
 			} else {
 				return res
 					.status(400)

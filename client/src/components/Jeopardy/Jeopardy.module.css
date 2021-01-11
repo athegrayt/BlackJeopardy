@@ -1,0 +1,71 @@
+.jeopardy{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: auto;
+  gap: 1vh 1vw;
+  justify-content: center;
+  align-content: flex-start;
+  height: 80vh;
+  width: 80%;
+}
+
+.item{
+  text-align: center;
+  text-justify: auto;
+  position: relative;
+  border-radius: 10px;
+  font-size: 25px;
+  padding: 20px 0;
+  background-color: #115FF4;
+  color: #DDCD8A;
+  /* box-shadow: 1px 2px grey; */
+}
+
+.disabled{
+  color:#115FF4
+}
+
+.category{
+  color: #ffffff;
+}
+
+.gameBoard{
+  color: #DDCD8A;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 
+              0 1px 5px 0 rgba(0, 0, 0, 0.12), 
+              0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gameBoard:active{
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12),
+              0 5px 5px -3px rgba(0, 0, 0, 0.4);
+}
+
+.score{
+  color: black;
+  border-radius: 50xp;
+  background-color: transparent;
+  grid-column: 1/4;
+  justify-self: center;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.gameValues{
+  grid-column:1/-1;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(3,1fr);
+  grid-template-columns: auto;
+  gap: 1vh 1vw;
+}
