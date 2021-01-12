@@ -6,6 +6,7 @@ const Person = mongoose.model('person');
 const MovieQuote = mongoose.model('movieQuote');
 const SNL = mongoose.model('snl');
 const CurrentGame = mongoose.model('curGame')
+const Records = mongoose.model('records')
 
 module.exports = (app) => {
 	app.get('/jeopardy/new-game', async (req, res) => {
@@ -43,11 +44,9 @@ module.exports = (app) => {
 			ans.snl[200] = routeMethods.randomNum(snl200);
 			const snl400 = snlQuotes
             .filter((obj) => obj.value === 400)
-            .filter((obj) => obj.value === 400)
             .map((joke) => routeMethods.organizeSNLData(joke));
 			ans.snl[400] = routeMethods.randomNum(snl400);
 			const snl600 = snlQuotes
-            .filter((obj) => obj.value === 600)
             .filter((obj) => obj.value === 600)
             .map((joke) => routeMethods.organizeSNLData(joke));
 			ans.snl[600] = routeMethods.randomNum(snl600);
@@ -80,7 +79,7 @@ module.exports = (app) => {
     });
     
     app.post('/jeopardy/current-game', async (req,res)=> {
-		const {mq, snl, person, _user ,curScore} = req.body
+		const {mq, snl, person, _user ,score} = req.body
 		
 		const curGame = await CurrentGame.findOne({
 			_user
@@ -92,8 +91,8 @@ module.exports = (app) => {
 					mq,
 					snl,
 					person,
-					score: +curScore
-				}
+					score
+				},{new: true}
 			);
 			try {
 				curGameUpdate.save();
@@ -106,6 +105,7 @@ module.exports = (app) => {
 				snl,
 				person,
 				_user,
+				score
 			});
 			try {
 				curGameInit.save();
@@ -129,6 +129,51 @@ module.exports = (app) => {
 			res.status(422).send(err);
 		}
         
-    })
+	})
+	
+	app.post('/jeopardy/records', async (req, res)=> {
+		const {_user, records} = req.body
+
+		const curRecords = await Records.findOne({
+			_user,
+		});
+		if (curRecords) {
+			const recordsUpdate = await Records.findOneAndUpdate(
+				{ _user },
+				{
+					records
+				},
+				{ new: true }
+			);
+			try {
+				recordsUpdate.save();
+			} catch (err) {
+				res.status(422).send(err);
+			}
+		} else {
+			const recordsInit = new Records({
+				records,
+				_user,
+			});
+			try {
+				recordsInit.save();
+			} catch (err) {
+				res.status(422).send(err);
+			}
+		}
+	})
+
+	app.get('/jeopardy/records/:_user', async (req, res) => {
+		const { _user } = await req.params;
+
+		try {
+			const records = await Records.findOne({
+				_user,
+			});
+			res.send(records.records);
+		} catch (err) {
+			res.status(422).send(err);
+		}
+	});
 
 };

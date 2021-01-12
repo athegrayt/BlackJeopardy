@@ -10,6 +10,7 @@ class Dashboard extends Component {
 		this.props.updateCurTab(this.props.location.icon || "home");
 		this.props.fetchGameQuestions()
 		this.props.fetchCurrentGame(this.props.auth.user.id);
+		this.props.setRecordsInit(this.props.auth.user.id);
 	}
 	
 	render(){
@@ -21,13 +22,15 @@ class Dashboard extends Component {
 					<Link
 						to='/jeopardy'
 						className={classes.btn}
-						onClick={() => this.props.setNewGame()}>
+						onClick={() => this.props.setNewGame(this.props.auth.user.id)}>
 						<p>New Game</p>
 					</Link>
 					<Link
 						to={this.props.jeop.newGame ? '#' : '/jeopardy'}
 						className={curGameBTNClass}
-						onClick={() => this.props.fetchCurrentGame()}>
+						onClick={() =>
+							this.props.fetchCurrentGame(this.props.auth.user.id)
+						}>
 						<p>Current Game</p>
 					</Link>
 				</div>

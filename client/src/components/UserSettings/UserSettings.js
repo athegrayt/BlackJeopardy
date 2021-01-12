@@ -3,14 +3,18 @@ import TabBar from '../../hoc/Layouts/Tabbar/TabBar'
 import {connect} from 'react-redux'
 import  {updateCurTab} from '../../store/actions/jeopardyActions'
 import { logoutUser } from '../../store/actions/authActions';
+import LogoutButton from '../UI/Buttons/Login/LoginButton';
+import * as classes from './UserSettings.module.css'
  
 
 const UserSettings = (props) =>{
    props.onCurTab(props.location.icon);
    return(
 <TabBar>
-    <h3>UserSettings</h3>
-    <button class="waves-effect waves-light btn red" onClick={()=>props.onLogOut()}>Logout</button>
+   <h3 style={{margin: '32px'}}>We are sad to see you go... 😢 </h3>
+    <div className={classes.settings}>
+       <LogoutButton clicked={()=>props.onLogOut()}>Logout</LogoutButton>
+       </div>
 </TabBar>
    );
     

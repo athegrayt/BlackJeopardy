@@ -9,7 +9,7 @@ import Landing from './components/Landing/Landing'
 import Jeopardy from './components/Jeopardy/Jeopardy'
 import Question from './components/Question/Question'
 import UserSettings from './components/UserSettings/UserSettings'
-import UserRecords from './components/UserRecords/UserRecords'
+import Records from './components/Records/Records'
 import PrivateRoute from './hoc/PrivateRoutes/PrivateRoutes'
    
 
@@ -32,7 +32,7 @@ class App extends Component {
 							<Route path='/login' component={UserAuth} />
 							<PrivateRoute exact path='/jeopardy' component={Jeopardy} />
 							<PrivateRoute path='/jeopardy/question' component={Question} />
-							<PrivateRoute path='/user-records' component={UserRecords} />
+							<PrivateRoute path='/user-records' component={Records} />
 							<PrivateRoute path='/user-settings' component={UserSettings}/>
 							<PrivateRoute exact path='/dashboard' component={Dashboard}/>
 						</Switch>

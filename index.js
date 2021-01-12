@@ -11,6 +11,7 @@ require('./models/MovieQuote');
 require('./models/Person');
 require('./models/SNL');
 require('./models/CurrentGame');
+require('./models/Records');
 require('./services/passport');
 mongoose.connect(keys.mongoURI, {
 	useFindAndModify: false,

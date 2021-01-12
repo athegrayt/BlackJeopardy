@@ -2,7 +2,8 @@ import {
 	SET_NEW_GAME,
 	UPDATE_CUR_TAB,
     SET_CURRENT_GAME,
-    SET_GAME_QUESTIONS, 
+    SET_GAME_QUESTIONS,
+    UPDATE_RECORDS 
 } from './actionTypes';
 import axios from 'axios'
 
@@ -31,13 +32,24 @@ export const fetchGameQuestions = () => async dispatch =>{
     }
 }
 
-export const setNewGame = () => {
+export const newGameInit = (score, newGame, mq, snl, person) => {
     return{
         type: SET_NEW_GAME,
-        mq: {200: true, 400: true, 600: true},
-        snl: {200: true, 400: true, 600: true},
-        person: {200: true, 400: true, 600: true}
+        score,
+        newGame,
+        mq,
+        snl,
+        person
     }
+}
+export const setNewGame = (_user)=> async dispatch =>{
+        const score= 0
+        const newGame= true
+        const mq= {200: true, 400: true, 600: true}
+        const snl= {200: true, 400: true, 600: true}
+        const person= {200: true, 400: true, 600: true}
+    axios.post('/jeopardy/current-game', {  _user });
+    dispatch(newGameInit(score, newGame, mq, snl, person));
 }
 
 export const setCurrentGame = (mq, snl, person, score) =>{
@@ -50,8 +62,8 @@ export const setCurrentGame = (mq, snl, person, score) =>{
 export const fetchCurrentGame = (id) => async dispatch =>{
     try {
         const curGame = await axios.get(`/jeopardy/current-game/${id}`);
-        if(curGame.data){
-            dispatch(setCurrentGame(curGame.data.mq, curGame.data.snl, curGame.data.person))
+        if(curGame.data.mq){
+            dispatch(setCurrentGame(curGame.data.mq, curGame.data.snl, curGame.data.person, curGame.data.score))
         }else{
             dispatch(setNewGame())
         }
@@ -60,9 +72,26 @@ export const fetchCurrentGame = (id) => async dispatch =>{
     }
 }
 
-export const updateJeopardy = (type, score, gameboard, _user ) =>async dispatch=>{
+export const updateJeopardy = (score, gameboard, _user) =>async dispatch=>{
     const { mq, snl, person } = gameboard
-    let curScore = type === 'ans' ? score : -score
-    dispatch(setCurrentGame(mq, snl, person, curScore))
-    axios.post('/jeopardy/current-game', { mq, snl, person, _user, curScore });
+    dispatch(setCurrentGame(mq, snl, person, score))
+    axios.post('/jeopardy/current-game', { mq, snl, person, _user, score });
+}
+
+export const setRecords = (records) => {
+    return{
+        type: UPDATE_RECORDS,
+        records
+    }
+}
+
+export const updateRecords = (_user, records) => async dispatch => {
+    axios.post('jeopardy/records',{ _user, records});     
+    dispatch(setRecords(records))
+}
+
+export const setRecordsInit = (id) => async dispatch => {
+   const pastRecords = await axios.get(`jeopardy/records/${id}`)
+   let records = pastRecords.data ? pastRecords.data : []
+   dispatch(setRecords(records))
 }

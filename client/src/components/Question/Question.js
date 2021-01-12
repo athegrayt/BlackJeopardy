@@ -23,9 +23,13 @@ class Question extends Component {
 				updatedGameBoard[category][gameBoardTile[1]] = false
 			} 
 		}
-		this.props.updateJeopardy(type, gameBoardTile[1], updatedGameBoard, this.props._user);
+		let curScore =
+			type === 'ans'
+				? this.props.score + (+gameBoardTile[1]) 
+				: this.props.score - (+gameBoardTile[1]);
+		this.props.updateJeopardy(curScore, updatedGameBoard, this.props._user);
 		this.setState({verifyAns: true, ansType: type})
-		setTimeout(() => this.setState({ verifyAns: false, redirect: true }), 2000);
+		setTimeout(() => this.setState({ verifyAns: false, redirect: true }), 1500);
 	};
 
 	render() {
@@ -95,7 +99,8 @@ const mapStateToProps = (state) => {
 		mq: state.jeop.curGame.mq,
 		snl: state.jeop.curGame.snl,
 		person: state.jeop.curGame.person,
-		_user: state.auth.user.id
+		score: state.jeop.score,
+		_user: state.auth.user.id,
 	};
 };
 

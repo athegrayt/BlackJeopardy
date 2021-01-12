@@ -6,6 +6,7 @@ module.exports = function (app) {
 			'/auth/google',
 			'/jeopardy/current-game',
 			'/jeopardy/new-game',
+			'/jeopardy/records',
 		],
 		createProxyMiddleware({
 			target: 'http://localhost:5000',
