@@ -12,7 +12,7 @@ const Records = (props) =>{
 				<p>{new Date(record.date).toLocaleDateString()}</p>
 				<p>{record.score}</p>
 			</div>
-		)) : <p>Play a full game to get your first score!</p>
+		)) : <p>Play a full game to add your first score!</p>
     return (
 			<TabBar>
 				<div className={classes.userRecords}>
