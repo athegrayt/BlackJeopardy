@@ -8,7 +8,7 @@ const Landing = (props) => {
 	return (
 		<Login>
 			<div className={classes.content}>
-				<h5>Validate you "Black Card" with Black Jeopardy</h5>
+				<h5>Validate your "Black Card" with Black Jeopardy</h5>
 				<img className={classes.imagebg} src={image} alt='background'></img>
 				<LoginButton clicked={() => props.history.push('/login')}>
 					Let's Play
