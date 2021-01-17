@@ -65,7 +65,7 @@ class UserAuth extends Component {
 	render() {
 		let btnText = 'Register';
 		let authText = 'Already have an account?';
-		let signInToggle = 'Sign Up';
+		let signInToggle = 'Sign In';
 		let authFields = signUpFields;
 		if (this.state.signIn) {
 			btnText = 'Sign In';
