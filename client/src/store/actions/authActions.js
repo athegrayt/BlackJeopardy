@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode"
 import {FETCH_USER, GET_ERRORS, SET_CURRENT_USER, USER_LOADING} from './actionTypes'
 
 
-export const fetchUser = () => 
+export const fetchUser = (user) => 
     async (dispatch)=>{
 		
 		let decoded, currentTime
@@ -38,21 +38,24 @@ export const handleToken = (token) => async dispatch =>{
 	}) 
 }		
 
-export const registerUser = (userData, history) => (dispatch) => {
-	axios
-		.post('/api/users/register', userData)
-		.then((res) => history.push('/game-choice')) 
-		.catch((err) =>
-			dispatch({
-				type: GET_ERRORS,
-				payload: err.response.data,
-			})
-		);
+export const registerUser = (userData, history) => async dispatch => {
+	try{
+		const res = await axios.post('/api/users/register', userData)
+			dispatch(loginUser(res, history))
+				// history.push('/login')
+	}catch(err){
+		dispatch({
+			type: GET_ERRORS,
+			payload: err.response.data,
+		})
+	}
 };
 
 export const loginUser = (userData, history) => async dispatch => {
 	try{
+		console.log(userData)
 		const res = await axios.post('/api/users/login', userData)
+		console.log(res)
 		const { token } = await res.data;
 		localStorage.setItem('jwtToken', token);
 		setAuthToken(token);

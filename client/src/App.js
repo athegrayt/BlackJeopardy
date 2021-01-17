@@ -12,10 +12,6 @@ import UserSettings from './components/UserSettings/UserSettings'
 import Records from './components/Records/Records'
 import PrivateRoute from './hoc/PrivateRoutes/PrivateRoutes'
    
-
-
-
-
  
 class App extends Component {
    componentDidMount(){

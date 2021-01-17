@@ -74,28 +74,10 @@ module.exports = (app) => {
 
     app.post('/api/users/login', async (req, res) => {
 			try{
-            console.log(req.body)
-			const { errors, isValid } = await validationLoginInput(req.body);
-			// Check validation
-			if (!isValid) {
-				return res.status(400).json(errors);
-			}
-			const email = await req.body.email;
-			const password = await req.body.password;
-			// Find user by email
-			const user = await User.findOne({ email });
-			// Check if user exists
-			if (!user) {
-				return res.status(404).json({ email: 'Email not found' });
-			}
-			// Check password
-			const isMatch = await bcrypt.compare(password, user.password);
-			if (isMatch) {
-				// User matched
-				// Create JWT Payload
+			if(req.body.data._id){
 				const payload = {
-					id: user.id,
-					name: user.name,
+					id: req.body.data._id,
+					name: req.body.data.name,
 				};
 				// Sign token
 				jwt.sign(
@@ -108,15 +90,53 @@ module.exports = (app) => {
 						res.json({
 							success: true,
 							token: 'Bearer ' + token,
-							userID: user.id
+							userID: req.body.data._id,
 						});
 					}
 				);
+			}else if (!req.body.data._id) {
+				console.log(req.body);
+				const { errors, isValid } = await validationLoginInput(req.body);
+				// Check validation
+				if (!isValid) {
+					return res.status(400).json(errors);
+				}
+				const email = await req.body.email;
+				const password = await req.body.password;
+				// Find user by email
+				const user = await User.findOne({ email });
+				// Check if user exists
+				if (!user) {
+					return res.status(404).json({ email: 'Email not found' });
+				}
+				// Check password
+				const isMatch = await bcrypt.compare(password, user.password);
+				if (isMatch) {
+					// User matched
+					// Create JWT Payload
+					const payload = {
+						id: user.id,
+						name: user.name,
+					};
+					// Sign token
+					jwt.sign(
+						payload,
+						keys.secretOrKey,
+						{
+							expiresIn: 31556926, // 1 year in seconds
+						},
+						(err, token) => {
+							res.json({
+								success: true,
+								token: 'Bearer ' + token,
+								userID: user.id,
+							});
+						}
+					);
+				}
 				// res.send(user)
 			} else {
-				return res
-					.status(400)
-					.json({ password: 'Password incorrect' });
+				return res.status(400).json({ password: 'Password incorrect' });
 			}
             }catch(err){
                 console.log(err);

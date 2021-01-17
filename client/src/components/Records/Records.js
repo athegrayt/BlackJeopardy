@@ -4,15 +4,15 @@ import TabBar from '../../hoc/Layouts/Tabbar/TabBar';
 import * as classes from './Records.module.css'
 import * as actions from '../../store/actions/jeopardyActions'
     
-const UserRecords = (props) =>{
+const Records = (props) =>{
    props.updateCurTab(props.location.icon);
    console.log(props.records)
-   let records = props.records.sort((a,b)=>b.score-a.score).map((record, i) => (
+   let records = props.records ? props.records.sort((a,b)=>b.score-a.score).map((record, i) => (
 			<div key={`${i}:${record.date}`} className={classes.score}>
 				<p>{new Date(record.date).toLocaleDateString()}</p>
 				<p>{record.score}</p>
 			</div>
-		));
+		)) : <p>Play a full game to get your first score!</p>
     return (
 			<TabBar>
 				<div className={classes.userRecords}>
@@ -32,4 +32,4 @@ const mapStateToProps = state => {
 	}
 }
 
-export default connect(mapStateToProps, actions)(UserRecords);
+export default connect(mapStateToProps, actions)(Records);

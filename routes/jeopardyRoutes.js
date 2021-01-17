@@ -170,7 +170,8 @@ module.exports = (app) => {
 			const records = await Records.findOne({
 				_user,
 			});
-			res.send(records.records);
+			let record = records ? records.records : []
+			res.send(record);
 		} catch (err) {
 			res.status(422).send(err);
 		}

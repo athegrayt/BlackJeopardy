@@ -92,6 +92,7 @@ export const updateRecords = (_user, records) => async dispatch => {
 
 export const setRecordsInit = (id) => async dispatch => {
    const pastRecords = await axios.get(`jeopardy/records/${id}`)
+   console.log(pastRecords);
    let records = pastRecords.data ? pastRecords.data : []
    dispatch(setRecords(records))
 }
