@@ -90,7 +90,7 @@ class UserAuth extends Component {
 						<LoginButton type='submit'>{btnText}</LoginButton>
 					</form>
 					<p style={{ maginBottom: '32px' }}>
-						{authText} <span onClick={this.signUpHandler} style={{color: '#8D2AB5'}}>{signInToggle}</span>
+						{authText} <span onClick={this.signUpHandler} style={{color: '#8D2AB5', cursor: 'pointer'}}>{signInToggle}</span>
 					</p>
 				</div>
 			</Login>

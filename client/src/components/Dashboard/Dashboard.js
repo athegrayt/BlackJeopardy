@@ -23,7 +23,7 @@ class Dashboard extends Component {
 						to='/jeopardy'
 						className={classes.btn}
 						onClick={() => this.props.setNewGame(this.props.auth.user.id)}>
-						<p>New Game</p>
+						<p>New</p>
 					</Link>
 					<Link
 						to={this.props.jeop.newGame ? '#' : '/jeopardy'}
@@ -31,7 +31,7 @@ class Dashboard extends Component {
 						onClick={() =>
 							this.props.fetchCurrentGame(this.props.auth.user.id)
 						}>
-						<p>Current Game</p>
+						<p>Current</p>
 					</Link>
 				</div>
 			</TabBar>

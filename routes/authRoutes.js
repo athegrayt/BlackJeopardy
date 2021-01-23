@@ -74,7 +74,8 @@ module.exports = (app) => {
 
     app.post('/api/users/login', async (req, res) => {
 			try{
-			if(req.body.data._id){
+				console.log(req.body);
+			if(req.body.data){
 				const payload = {
 					id: req.body.data._id,
 					name: req.body.data.name,
@@ -94,7 +95,7 @@ module.exports = (app) => {
 						});
 					}
 				);
-			}else if (!req.body.data._id) {
+			}else if (!req.body.data) {
 				console.log(req.body);
 				const { errors, isValid } = await validationLoginInput(req.body);
 				// Check validation

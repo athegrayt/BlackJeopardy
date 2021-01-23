@@ -10,5 +10,6 @@
   text-decoration: none;
   font-size: 18px;
   margin: 16px;
+  cursor: pointer;
   /* margin-bottom: 10vh; */
 }

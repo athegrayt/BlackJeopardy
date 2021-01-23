@@ -30,11 +30,15 @@
 }
 
 .disabled{
-  color:#115FF4
+  color:#115FF4;
+  cursor: none;
+  
 }
 
 .category{
   color: #ffffff;
+  background-color: #060CE9;
+  cursor: none;
 }
 
 .gameBoard{
