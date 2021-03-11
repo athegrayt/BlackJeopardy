@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import Modal from '../UI/Modal/Modal'
+import correctGIF from '../../assets/gif/giphy.gif'
+import incorrectGIF from '../../assets/gif/incorrectGIF.gif'
 import * as actions from '../../store/actions/jeopardyActions';
 import * as classes from './Question.module.css';
 import TabBar from '../../hoc/Layouts/Tabbar/TabBar';
@@ -29,7 +31,7 @@ class Question extends Component {
 				: this.props.score - (+gameBoardTile[1]);
 		this.props.updateJeopardy(curScore, updatedGameBoard, this.props._user);
 		this.setState({verifyAns: true, ansType: type})
-		setTimeout(() => this.setState({ verifyAns: false, redirect: true }), 1500);
+		setTimeout(() => this.setState({ verifyAns: false, redirect: true }), 2000);
 	};
 
 	render() {
@@ -54,14 +56,16 @@ class Question extends Component {
 			verifiedAns =
 				this.state.ansType === 'ans' ? (
 					<Modal show={this.state.verifyAns}>
-						<p className={classes.response}>That's Correct!</p>
+						<img src={correctGIF} alt='correct'></img>
+						<h4 className={classes.response}>Correct!</h4>
 					</Modal>
 				) : (
 					<Modal show={this.state.verifyAns}>
-						<p className={classes.response}>
-							Sorry, the answer that we were looking for was:
-						</p>
-						<p className={classes.response}>{answer}</p>
+						<img src={incorrectGIF} alt='correct'></img>
+						<h4 className={classes.response}>
+							Correct answer was:
+						</h4>
+						<h4 className={classes.response}>{answer}</h4>
 					</Modal>
 				);
 		}

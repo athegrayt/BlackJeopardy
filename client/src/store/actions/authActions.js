@@ -10,7 +10,6 @@ export const fetchUser = (user) =>
 		let decoded, currentTime
 		const token = await localStorage.jwtToken;
         const res = await axios.get('/api/current-user')
-		console.log(res)
 			if(res.data){
 			// setAuthToken(res.data._id);
 				dispatch({
@@ -53,9 +52,8 @@ export const registerUser = (userData, history) => async dispatch => {
 
 export const loginUser = (userData, history) => async dispatch => {
 	try{
-		console.log(userData)
+	
 		const res = await axios.post('/api/users/login', userData)
-		console.log(res)
 		const { token } = await res.data;
 		localStorage.setItem('jwtToken', token);
 		setAuthToken(token);

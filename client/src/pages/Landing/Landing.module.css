@@ -1,0 +1,29 @@
+.imagebg{
+	display: block;
+    margin-top: -50vh;
+    margin-left: auto;
+    margin-right: auto;
+	opacity: 0.2;
+	border-radius: 35px;
+	max-width: 80%;
+	max-height: 80vh;
+  	z-index: -1;
+}
+
+h5{
+    margin-top: 40vh;
+    max-width: 70%;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content{
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    justify-content: space-between;
+    height: 80vh;
+}
