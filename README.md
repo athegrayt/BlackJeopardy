@@ -2,7 +2,7 @@
 
 ![Project Image](./client/src/assets/gif/Black_Jeopardy.gif)
 
-> Validate your "Black Card" with  [Black Jeopardy](http://blackjeopardy.herokuapp.com/)
+> Validate your "Black Card" with Saturday Night Live inspired [Black Jeopardy](http://blackjeopardy.herokuapp.com/)
 
 ---
 
@@ -18,7 +18,7 @@
 
 ## Description
 
-A M.E.R.N fullstack web app that leverages webscrapping to provide black jeopardy's questions and answers. Create an account and take a first person approach to the famous SNL black jeopardy skit.
+A M.E.R.N fullstack web app that leverages webscrapping to provide Black Jeopardy's questions and answers. Create an account and take a first person approach to the famous Saturday Night Live skit, "Black Jeopardy".
 
 #### Technologies
 
