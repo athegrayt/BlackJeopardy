@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import Modal from '../UI/Modal/Modal'
@@ -7,7 +7,6 @@ import incorrectGIF from '../../assets/gif/incorrectGIF.gif'
 import * as actions from '../../store/actions/jeopardyActions';
 import * as classes from './Question.module.css';
 import TabBar from '../../hoc/Layouts/Tabbar/TabBar';
-import QuestionButton from '../UI/Buttons/Question/QuestionButton';
 import shuffle from '../../utils/shuffle';
 
 class Question extends Component {
@@ -57,40 +56,37 @@ class Question extends Component {
 				this.state.ansType === 'ans' ? (
 					<Modal show={this.state.verifyAns}>
 						<img src={correctGIF} alt='correct'></img>
-						<h4 className={classes.response}>Correct!</h4>
+						<h5 style={{ color: '#060ce9' }}>Correct!</h5>
 					</Modal>
 				) : (
 					<Modal show={this.state.verifyAns}>
 						<img src={incorrectGIF} alt='correct'></img>
-						<h4 className={classes.response}>
+						<h5 style={{ color: '#060ce9' }} className={classes.response}>
 							Correct answer was:
-						</h4>
-						<h4 className={classes.response}>{answer}</h4>
+						</h5>
+						<h6 className={classes.response}>{answer}</h6>
 					</Modal>
 				);
 		}
 		const JeopAnswers = shuffledArr.map((ans, i) => {
-			return(
-				<Fragment>
-					<QuestionButton
-						key={ans.answer}
-						clicked={() => this.updateGameBoard(gameTile, ans )}>
-						{ans.answer}
-					</QuestionButton>
-				</Fragment>
-			)
+			return (
+				<div className={classes.btn}
+					key={ans.answer}
+					onClick={() => this.updateGameBoard(gameTile, ans)}>
+					{ans.answer}
+				</div>
+			);
 		});
-		let prompt = this.state.ansType ? null : (
-			<div className={classes.container}>
-				<div className={classes.question}>{question}</div>
-				<h3>{ansPrompt}</h3>
-				<div className={classes.answers}>{JeopAnswers}</div>
-			</div>
-		);
 
 		return (
 			<TabBar question={true}>
-				{prompt}
+				{!this.state.ansType && (
+					<Fragment>
+						<div className={classes.question}>{question}</div>
+						<h5>{ansPrompt}</h5>
+						<div className={classes.answers}>{JeopAnswers}</div>
+					</Fragment>
+				)}
 				{verifiedAns}
 				{redirect}
 			</TabBar>

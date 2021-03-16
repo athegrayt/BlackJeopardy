@@ -6,13 +6,13 @@ import * as classes from './Landing.module.css'
 const Landing = (props) => {
 	return (
 		<Login>
-			<div className={classes.content}>
-				<h5>Validate your "Black Card" with Black Jeopardy</h5>
+			<div className={classes.img}>
+				<h5>Experience the Saturday Night Live inspired Black Jeopardy</h5>
 				<img className={classes.imagebg} src={image} alt='background'></img>
+			</div>
 				<LoginButton clicked={() => props.history.push('/login')}>
 					Let's Play
 				</LoginButton>
-			</div>
 		</Login>
 	);
 };

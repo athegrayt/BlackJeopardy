@@ -6,11 +6,9 @@ class Login extends Component{
 	render(){
 		return (
 			<div className={classes.gradientbg}>
-				<main className={classes.content}>
+				<main className={classes.main}>
 					<img className={classes.logo} src={logo} alt='logo'></img>
-					<div>
-					{this.props.children}
-					</div>
+					<div className={classes.content}>{this.props.children}</div>
 				</main>
 			</div>
 		);

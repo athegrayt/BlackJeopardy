@@ -22,7 +22,7 @@
   display: flex;
   flex-flow: column;
   text-align: center;
-  border-radius: 25xp;
+  border-radius: 25px;
 }
 
 .ModalOpen {

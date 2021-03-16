@@ -20,14 +20,6 @@ module.exports = (app) => {
     res.redirect('/dashboard');    
     });
     
-    app.get(
-        '/auth/facebook',
-        passport.authenticate('facebook', {
-            scope: ['email'],
-        })
-    );
-    app.get('/auth/facebook/callback', passport.authenticate('facebook', {}));
-
     app.get('/api/logout', (req,res)=>{
         req.logout()
         res.redirect('/login')
@@ -96,7 +88,6 @@ module.exports = (app) => {
 					}
 				);
 			}else if (!req.body.data) {
-				console.log(req.body);
 				const { errors, isValid } = await validationLoginInput(req.body);
 				// Check validation
 				if (!isValid) {

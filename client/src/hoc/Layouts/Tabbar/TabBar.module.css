@@ -13,7 +13,7 @@
 
 .logo {
 	margin-top: 32px;
-	width: 150px;
+	height: 7vh;
 }
 
 h3 {
@@ -28,7 +28,7 @@ h3 {
 	/* border: 2px solid black; */
 	/* justify-content: space-between; */
 	align-items: center;
-	height: 90vh;
+	height: 90%;
 	width: 100vw;
 	z-index: 2;
 	position: absolute;

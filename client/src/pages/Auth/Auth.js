@@ -73,23 +73,28 @@ class UserAuth extends Component {
 
 		return (
 			<Login>
-				<div className={classes.authPage}>
-					<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-						{this.renderInput(authFields)}
-						<p>Or continue with</p>
-						<ul>
-							<li>
-								<a href='/auth/google'>
-									<img src={googleSignIn} alt='Google SignIn' />
-								</a>
-							</li>
-						</ul>
-						<LoginButton type='submit'>{btnText}</LoginButton>
-					</form>
-					<p style={{ maginBottom: '32px' }}>
-						{authText} <span onClick={this.signUpHandler} style={{color: '#8D2AB5', cursor: 'pointer'}}>{signInToggle}</span>
+				<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+					{this.renderInput(authFields)}
+					<p style={{fontSize: `18px` }}>
+						Or continue with
 					</p>
-				</div>
+					<ul>
+						<li>
+							<a href='/auth/google'>
+								<img src={googleSignIn} alt='Google SignIn' />
+							</a>
+						</li>
+					</ul>
+					<LoginButton type='submit'>{btnText}</LoginButton>
+				</form>
+				<p style={{ maginBottom: '32px', fontSize: `18px` }}>
+					{authText}{' '}
+					<span
+						onClick={this.signUpHandler}
+						style={{ color: '#8D2AB5', cursor: 'pointer' }}>
+						{signInToggle}
+					</span>
+				</p>
 			</Login>
 		);
 	}
