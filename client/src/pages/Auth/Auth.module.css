@@ -4,10 +4,12 @@
   flex-flow: column;
   /* justify-content: space-evenly; */
   align-items: center;
-  height:80vh;
+  margin-block-start: 10%;
   width: 80vw;
   text-align: center;
-  margin-block-start: 10vh;
+}
+.register{
+  margin-block-start: 10%;
 }
 
 .authPage input{

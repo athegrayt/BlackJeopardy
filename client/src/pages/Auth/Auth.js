@@ -70,14 +70,14 @@ class UserAuth extends Component {
 			signInToggle = 'Sign Up';
 			authFields = signInFields;
 		}
-
+		const cssClasses = [classes.authPage, !this.state.signIn && classes.register].join(' ');
 		return (
 			<Login>
-				<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+				<form
+					className={cssClasses}
+					onSubmit={this.props.handleSubmit(this.onSubmit)}>
 					{this.renderInput(authFields)}
-					<p style={{fontSize: `18px` }}>
-						Or continue with
-					</p>
+					<p style={{ fontSize: `18px` }}>Or continue with</p>
 					<ul>
 						<li>
 							<a href='/auth/google'>
@@ -86,7 +86,6 @@ class UserAuth extends Component {
 						</li>
 					</ul>
 					<LoginButton type='submit'>{btnText}</LoginButton>
-				</form>
 				<p style={{ maginBottom: '32px', fontSize: `18px` }}>
 					{authText}{' '}
 					<span
@@ -95,6 +94,7 @@ class UserAuth extends Component {
 						{signInToggle}
 					</span>
 				</p>
+				</form>
 			</Login>
 		);
 	}
