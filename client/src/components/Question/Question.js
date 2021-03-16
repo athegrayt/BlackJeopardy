@@ -1,4 +1,4 @@
-import React, { Component, Fragment} from 'react';
+import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import Modal from '../UI/Modal/Modal'
@@ -81,11 +81,11 @@ class Question extends Component {
 		return (
 			<TabBar question={true}>
 				{!this.state.ansType && (
-					<Fragment>
+					<div className={classes.container}>
 						<div className={classes.question}>{question}</div>
 						<h5>{ansPrompt}</h5>
 						<div className={classes.answers}>{JeopAnswers}</div>
-					</Fragment>
+					</div>
 				)}
 				{verifiedAns}
 				{redirect}

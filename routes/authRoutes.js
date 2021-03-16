@@ -97,12 +97,14 @@ module.exports = (app) => {
 				const password = await req.body.password;
 				// Find user by email
 				const user = await User.findOne({ email });
+				console.log('user',user)
 				// Check if user exists
 				if (!user) {
 					return res.status(404).json({ email: 'Email not found' });
 				}
 				// Check password
 				const isMatch = await bcrypt.compare(password, user.password);
+				console.log('isMatch', isMatch)
 				if (isMatch) {
 					// User matched
 					// Create JWT Payload
@@ -110,6 +112,7 @@ module.exports = (app) => {
 						id: user.id,
 						name: user.name,
 					};
+					console.log(payload)
 					// Sign token
 					jwt.sign(
 						payload,
@@ -125,12 +128,11 @@ module.exports = (app) => {
 							});
 						}
 					);
-				}
-				// res.send(user)
-			} else {
+				}else {
 				return res.status(400).json({ password: 'Password incorrect' });
 			}
-            }catch(err){
+		}
+		}catch(err){
                 console.log(err);
             }
 		});
