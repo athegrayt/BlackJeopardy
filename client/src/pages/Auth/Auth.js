@@ -1,95 +1,73 @@
-import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import React, { useEffect, useState, useContext } from 'react';
+import {useForm} from 'react-hook-form'
+import {withRouter, useHistory} from 'react-router-dom'
+import globalStateContext from '../../context/global-state-context';
+import * as classes from './Auth.module.css' 
+import Login from '../../hoc/Layouts/Login/Login'
+import {signInFields, signUpFields} from './authFields';
 import Input from '../../components/UI/Input/Input';
 import googleSignIn from '../../assets/google_signin_buttons/web/1x/btn_google_signin_dark_normal_web.png'
 import LoginButton from '../../components/UI/Buttons/Login/LoginButton';
-import Login from '../../hoc/Layouts/Login/Login'
-import * as classes from './Auth.module.css' 
-import {signInFields, signUpFields} from './authFields';
-import {withRouter} from 'react-router-dom'
-import { connect } from 'react-redux';
-import * as actions from '../../store/actions/authActions'
-// import validateEmails from '../../utils/validateEmails';
 
-class UserAuth extends Component {
-	state = {
-		signIn: true,
-	};
+const Auth = (props)=> {
+	const context = useContext(globalStateContext)
+	const {isAuthenticated, auth, error, setError} = context
+	const [signIn, setSignIn] = useState(true)
+	const {register, handleSubmit} = useForm()
+	let history = useHistory()
+	let authFields = signIn ?signInFields : signUpFields
+
+	useEffect(()=>{
+		if (isAuthenticated) {
+     history.push("/dashboard")
+		}
+	}, [isAuthenticated])
 
 	
-
-	componentDidMount(){
-		if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
-	}
-	componentDidUpdate(){
-		if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
-	}
-
-	signUpHandler = () => {
-		const curMode = this.state.signIn;
-		this.setState({ signIn: !curMode });
-	};
-
-	onSubmit=(values)=>{
-		this.state.signIn
-			? this.props.loginUser(values, this.props.history)
-			: this.props.registerUser(values, this.props.history);
-	}
-
-	renderInput(authFields) {
-		return authFields.map(({ label, name, type }) => {
-			let error = null
-			if(this.props.errors){
-				error= this.props.errors[name] 
-			}
+	const renderInput= authFields.map(({ label, name, type }, i) => {
 			return (
-				<Field
-					key={name}
-					component={Input}
+				<Input
+					key={`${name}${i}`}
 					type={type}
 					label={label}
 					name={name}
-					error={error}
+					register={register({
+						required: true,
+						error: ()=>!error
+					})}
 				/>
 			);
 		});
-	}
-
-	render() {
-		let btnText = 'Register';
-		let authText = 'Already have an account?';
-		let signInToggle = 'Sign In';
-		let authFields = signUpFields;
-		if (this.state.signIn) {
-			btnText = 'Sign In';
-			authText = `Don't have an account?`;
-			signInToggle = 'Sign Up';
-			authFields = signInFields;
+		let btnText = signIn ? 'Sign In' : 'Register'
+		let authText = signIn ?`Don't have an account?` : 'Already have an account?'
+		let signInToggle = signIn ?'Sign Up':'Sign In'
+		
+	const onsubmit = (values) => {
+		console.log('onsubmit')	
+		auth(values, signIn, props.history)
 		}
-		const cssClasses = [classes.authPage, !this.state.signIn && classes.register].join(' ');
+		const cssClasses = [classes.authPage, !signIn && classes.register].join(' ');
 		return (
 			<Login>
 				<form
 					className={cssClasses}
-					onSubmit={this.props.handleSubmit(this.onSubmit)}>
-					{this.renderInput(authFields)}
+					onSubmit={handleSubmit((values)=>onsubmit(values))}>
+					{renderInput}
+					{error && <p style={{color: 'red'}}>{error}</p>}
 					<p style={{ fontSize: `18px` }}>Or continue with</p>
-					<ul>
-						<li>
+					<div>
 							<a href='/auth/google'>
 								<img src={googleSignIn} alt='Google SignIn' />
 							</a>
-						</li>
-					</ul>
+					</div>
 					<LoginButton type='submit'>{btnText}</LoginButton>
-				<p style={{ maginBottom: '32px', fontSize: `18px` }}>
+				<p style={{ marginBottom: '32px', fontSize: `18px` }}>
 					{authText}{' '}
 					<span
-						onClick={this.signUpHandler}
+							onClick={() => {
+								setError()
+								setSignIn(!signIn)
+							}}
 						style={{ color: '#8D2AB5', cursor: 'pointer' }}>
 						{signInToggle}
 					</span>
@@ -98,14 +76,6 @@ class UserAuth extends Component {
 			</Login>
 		);
 	}
-}
 
-const mapStateToProps = ({auth, err}) => ({
-	auth,
-	errors: err
-})
 
-export default connect(mapStateToProps, actions)(reduxForm({
-	form: 'authForm',
-	destroyOnUnmount: false,
-})(withRouter(UserAuth)));
+export default withRouter(Auth);

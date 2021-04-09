@@ -7,6 +7,7 @@ import reduxThunk from 'redux-thunk';
 import App from './App';
 import reducers from './store/reducers';
 import axios from 'axios';
+import GlobalState from './context/GlobalState'
 
 window.axios = axios;
 
@@ -19,7 +20,9 @@ const store = createStore(reducers, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
 	<Provider store={store}>
+		<GlobalState>
 		<App />
+		</GlobalState>
 	</Provider>,
 	document.querySelector('#root')
 );

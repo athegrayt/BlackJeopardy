@@ -1,14 +1,19 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, {useContext} from 'react';
 import TabBar from '../../hoc/Layouts/Tabbar/TabBar';
 import * as classes from './Records.module.css';
-import * as actions from '../../store/actions/jeopardyActions';
+import globalStateContext from '../../context/global-state-context';
 
 const Records = (props) => {
-	props.updateCurTab(props.location.icon);
-	let records = props.records.length > 0 ? (
+	const context = useContext(globalStateContext)
+	const {records} = context
+	
+	return (
+		<TabBar icon={'record'}>
+			<div className={classes.userRecords}>
+				<h3>High Scores</h3>
+				{records.length > 0 ? (
 		<div className={classes.records}>
-			{props.records
+			{records
 				.sort((a, b) => b.score - a.score)
 				.map((record, i) => (
 					<div key={`${i}:${record.date}`} className={classes.score}>
@@ -19,22 +24,11 @@ const Records = (props) => {
 		</div>
 	) : (
 		<p style={{color: '#060CE9'}}>Play a full game to add your first score!</p>
-	);
-
-	return (
-		<TabBar>
-			<div className={classes.userRecords}>
-				<h3>High Scores</h3>
-				{records}
+	)}
 			</div>
 		</TabBar>
 	);
 };
 
-const mapStateToProps = (state) => {
-	return {
-		records: state.jeop.records,
-	};
-};
 
-export default connect(mapStateToProps, actions)(Records);
+export default Records;

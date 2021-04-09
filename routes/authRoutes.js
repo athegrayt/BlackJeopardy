@@ -91,6 +91,7 @@ module.exports = (app) => {
 				const { errors, isValid } = await validationLoginInput(req.body);
 				// Check validation
 				if (!isValid) {
+					console.log(errors)
 					return res.status(400).json(errors);
 				}
 				const email = await req.body.email;
@@ -100,7 +101,8 @@ module.exports = (app) => {
 				console.log('user',user)
 				// Check if user exists
 				if (!user) {
-					return res.status(404).json({ email: 'Email not found' });
+					return res.json({ error: 'Email not found' });
+					// return res.status(404).json({ email: 'Email not found' });
 				}
 				// Check password
 				const isMatch = await bcrypt.compare(password, user.password);

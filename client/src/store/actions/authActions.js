@@ -11,7 +11,7 @@ export const fetchUser = (user) =>
 		const token = await localStorage.jwtToken;
         const res = await axios.get('/api/current-user')
 			if(res.data){
-			// setAuthToken(res.data._id);
+				
 				dispatch({
 				type: FETCH_USER,
 				payload: res.data,

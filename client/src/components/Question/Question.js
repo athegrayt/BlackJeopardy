@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component, useContext, useState} from 'react';
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import Modal from '../UI/Modal/Modal'
@@ -8,36 +8,40 @@ import * as actions from '../../store/actions/jeopardyActions';
 import * as classes from './Question.module.css';
 import TabBar from '../../hoc/Layouts/Tabbar/TabBar';
 import shuffle from '../../utils/shuffle';
+import globalStateContext from '../../context/global-state-context';
 
-class Question extends Component {
-	state={
-		redirect: false,
-		ansType: null, 
-	}
-
-	updateGameBoard = (gameTile, ans) => {
+const Question =(props)=> {
+	const context = useContext(globalStateContext)
+	const {curGame, user, score, updateJeopardy} = context
+	const [redirect, setRedirect] = useState(false)
+	const [ansType, setAnsType] = useState()
+	const [verifyAns, setVerifyAns] = useState()
+	
+	const updateGameBoard = (gameTile, ans) => {
 		const{type} = ans
 		const gameBoardTile=gameTile.split('.')
-		let updatedGameBoard = { mq:this.props.mq,snl: this.props.snl, person: this.props.person };
+		let updatedGameBoard = { mq: curGame.mq ,snl: curGame.snl,person: curGame.person };
 		for (let category in updatedGameBoard) {
-			if (category === gameBoardTile[0]){
+			if (category === gameBoardTile[0]) {
 				updatedGameBoard[category][gameBoardTile[1]] = false
 			} 
 		}
 		let curScore =
 			type === 'ans'
-				? this.props.score + (+gameBoardTile[1]) 
-				: this.props.score - (+gameBoardTile[1]);
-		this.props.updateJeopardy(curScore, updatedGameBoard, this.props._user);
-		this.setState({verifyAns: true, ansType: type})
-		setTimeout(() => this.setState({ verifyAns: false, redirect: true }), 2000);
+				? score + (+gameBoardTile[1]) 
+				: score - (+gameBoardTile[1]);
+		updateJeopardy(curScore, updatedGameBoard, user.id);
+		setVerifyAns(true)
+		setAnsType(type)
+		setTimeout(() => {
+			setVerifyAns(false)
+			setRedirect(true)
+		}, 2000);
 	};
 
-	render() {
-		let redirect = this.state.redirect ? <Redirect to='/jeopardy'></Redirect> : null
-		const { catName, gameTile } = this.props.location;
-		let { question } = this.props.location.info;
-		const { answer, answerAlt1, answerAlt2 } = this.props.location.info;
+		const { catName, gameTile, info } = props.location;
+		let { question } = info;
+		const { answer, answerAlt1, answerAlt2 } = info;
 		let answers = [
 			{ answer, type: 'ans' },
 			{ answer: answerAlt1, type: 'alt' },
@@ -51,15 +55,15 @@ class Question extends Component {
 			);
 		}
 		let verifiedAns=null
-		if(this.state.ansType){
+		if(ansType){
 			verifiedAns =
-				this.state.ansType === 'ans' ? (
-					<Modal show={this.state.verifyAns}>
+				ansType === 'ans' ? (
+					<Modal show={verifyAns}>
 						<img src={correctGIF} alt='correct'></img>
 						<h5 style={{ color: '#060ce9' }}>Correct!</h5>
 					</Modal>
 				) : (
-					<Modal show={this.state.verifyAns}>
+					<Modal show={verifyAns}>
 						<img src={incorrectGIF} alt='correct'></img>
 						<h5 style={{ color: '#060ce9' }} className={classes.response}>
 							Correct answer was:
@@ -72,7 +76,7 @@ class Question extends Component {
 			return (
 				<div className={classes.btn}
 					key={ans.answer}
-					onClick={() => this.updateGameBoard(gameTile, ans)}>
+					onClick={() => updateGameBoard(gameTile, ans)}>
 					{ans.answer}
 				</div>
 			);
@@ -80,7 +84,7 @@ class Question extends Component {
 
 		return (
 			<TabBar question={true}>
-				{!this.state.ansType && (
+				{!ansType && (
 					<div className={classes.container}>
 						<div className={classes.question}>{question}</div>
 						<h5>{ansPrompt}</h5>
@@ -88,20 +92,11 @@ class Question extends Component {
 					</div>
 				)}
 				{verifiedAns}
-				{redirect}
+				{redirect && <Redirect to='/jeopardy'></Redirect>}
 			</TabBar>
 		);
 	}
-}
 
-const mapStateToProps = (state) => {
-	return {
-		mq: state.jeop.curGame.mq,
-		snl: state.jeop.curGame.snl,
-		person: state.jeop.curGame.person,
-		score: state.jeop.score,
-		_user: state.auth.user.id,
-	};
-};
 
-export default connect(mapStateToProps, actions)(Question);
+
+export default Question;

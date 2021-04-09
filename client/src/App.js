@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as actions from './store/actions/authActions';
 import Dashboard from './pages/Dashboard/Dashboard'
 import Auth from './pages/Auth/Auth'
 import Landing from './pages/Landing/Landing'
@@ -10,34 +8,32 @@ import Question from './components/Question/Question'
 import Settings from './pages/Settings/Settings'
 import Records from './pages/Records/Records'
 import PrivateRoute from './hoc/PrivateRoutes/PrivateRoutes'
+import globalStateContext from './context/global-state-context';
    
  
-class App extends Component {
-   componentDidMount(){
-	this.props.fetchUser();
-
-}
-
-   render(){
+const App =(props)=>{
+	const context = useContext(globalStateContext)
+	const {fetchUser, isAuthenticated} = context
+	useEffect(() => {
+	   fetchUser()
+   }, [])
+	
 		return (
 			<div>
 					<BrowserRouter>
 						<Switch>
 							<Route exact path='/' component={Landing}/>
 							<Route path='/login' component={Auth} />
-							<PrivateRoute exact path='/jeopardy' component={Jeopardy} />
-							<PrivateRoute path='/jeopardy/question' component={Question} />
-							<PrivateRoute path='/user-records' component={Records} />
-							<PrivateRoute path='/user-settings' component={Settings}/>
-							<PrivateRoute exact path='/dashboard' component={Dashboard}/>
+							<PrivateRoute isAuthenticated={isAuthenticated} exact path='/jeopardy' component={Jeopardy} />
+							<PrivateRoute isAuthenticated={isAuthenticated} path='/jeopardy/question' component={Question} />
+							<PrivateRoute isAuthenticated={isAuthenticated} path='/user-records' component={Records} />
+							<PrivateRoute isAuthenticated={isAuthenticated} path='/user-settings' component={Settings}/>
+							<PrivateRoute isAuthenticated={isAuthenticated} exact path='/dashboard' component={Dashboard}/>
 						</Switch>
 					</BrowserRouter>
 				</div>
 				);
-   }
- 
+   
 };
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-export default connect(mapStateToProps, actions)(App);
+
+export default App;
